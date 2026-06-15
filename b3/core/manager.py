@@ -18,7 +18,7 @@ def tiep_nhan_chuyen_bay(flights):
     try:
         passengers = int(input("Nhập số lượng hành khách: "))
         depart_time = input("Nhập thời gian cất cánh (YYYY-MM-DD HH:MM:SS): ").strip()
-        datetime.datetime.fromisoformat(depart_time)
+        datetime.datetime.strptime(depart_time, "%Y-%m-%d %H:%M:%S")
         duration_min = int(input("Nhập số phút bay: "))
     except ValueError:
         print("Sai định dạng! Vui lòng kiểm tra lại số lượng hoặc định dạng thời gian (YYYY-MM-DD HH:MM:SS).")
