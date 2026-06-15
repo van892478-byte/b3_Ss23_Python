@@ -1,10 +1,21 @@
-import os
+import datetime
 
-def khoi_tao_thu_muc():
-    print("\n----- KHỞI TẠO THƯ MỤC HỆ THỐNG -----")
-    if not os.path.exists("aviation_logs"):
-        print("[SYSTEM] Thư mục 'aviation_logs' chưa tồn tại. Đang tiến hành khởi tạo...")
-        os.mkdir("aviation_logs")
-        print("[SYSTEM] Tạo thư mục thành công!")
-    else:
-        print("Thư mục đã tồn tại, bỏ qua bước khởi tạo")
+def tinh_eta(flights):
+    print("\n----- TÍNH TOÁN THỜI GIAN HẠ CÁNH (ETA) -----")
+    flight_id = input("Nhập mã chuyến bay cần tính: ").strip().upper()
+    
+    chuyen_bay = None
+    for f in flights:
+        if f["flight_id"] == flight_id:
+            chuyen_bay = f
+            break
+            
+    if chuyen_bay is None:
+        print("Không tìm thấy mã chuyến bay này!")
+        return
+
+    dep_time = datetime.datetime.strptime(chuyen_bay["depart_time"], "%Y-%m-%d %H:%M:%S")
+    eta = dep_time + datetime.timedelta(minutes=chuyen_bay["duration_min"])
+    
+    print(f"-> Chuyến bay {flight_id} cất cánh lúc: {chuyen_bay['depart_time']}")
+    print(f"-> Thời gian hạ cánh dự kiến (ETA): {str(eta)}")
